@@ -1,0 +1,19 @@
+<html>
+    <head></head> 
+    <body> 
+        <div th:fragment="menu"> 
+            <section class="jumbotron text-center" th:if="${#httpServletRequest.remoteUser != null}"> 
+                <div class="container"> 
+                    <h2 class="jumbotron-heading">Album gallery</h2> 
+                    <p> 
+                        <a href="/album" class="btn btn-primary my-2">Explore albums</a> 
+                        <a href="/media" class="btn btn-secondary my-2">Explore medias</a> 
+                    </p> 
+                </div> 
+            </section> 
+            <div class="card"> 
+                <h5 class="card-body text-center" th:if="${pageTitle != null}" th:text="${pageTitle}"></h5> 
+            </div> 
+        </div>  
+    </body>
+</html>
