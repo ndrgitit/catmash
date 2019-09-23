@@ -22,10 +22,13 @@ public class FrontWebController {
      * Using templates/scores.html
      * 
      * @return score
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
      */
     @GetMapping("/")
-    public ModelAndView fromRootToScoresPage() {
-
+    public ModelAndView fromRootToScoresPage(Model model) throws JsonParseException, JsonMappingException, IOException {
+        model.addAttribute("cats", dataSource.getCats().getOrderedCatScores());
         return new ModelAndView("scores");
     }
 

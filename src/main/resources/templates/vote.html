@@ -1,37 +1,39 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head th:replace="head :: head"></head> 
-    <body> 
-        <!-- header th:replace="header :: header"></header>  -->
-        <main role="main"> 
-            <center> 
-                <div class="album py-5 bg-light"> 
-                    <div class="container"> 
-                        <h1>Catmash scores</h1> 
-                        <p class="lead text-muted">This is a Catmash projects using Java EE, Spring, Hibernate, Thymeleaf, ...</p> 
-                    </div> 
-                    
-                    <div class="container jumbotron"> 
-                    	<div class="row">                    	 
-				            <div class="card-body col-md-6" th:each="anews : ${cats}">
-						        <div class="card">
-							        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"> 
-	                                    <image th:if="${anews.url != null}" th:href="@{{img}(img=${anews.url})}" x="0" y="0" height="100%" width="100%" /> 
-	                                </svg>
-	                                <small>[[${anews.score}]] vote(s)</small>
-	                                
-	                                <div class="d-flex justify-content-between align-items-center"> 
-					                    <div class="btn-group"> 
-					                        <button th:onclick="'window.location.href = \'' + @{/vote/{id}(id=${anews.id})} + '\''" type="button" class="btn btn-sm btn-outline-secondary">vote</button> 
-					                    </div> 
-					                </div> 
-	                            </div>
-						    </div>
-					    </div>
-                    </div>
-                </div> 
-            </center> 
-        </main> 
-        <!-- footer th:replace="footer :: footer"></footer>   -->
-    </body>
+<head th:replace="head :: head"></head>
+<body>
+	<header th:replace="header :: header"></header>
+	<main role="main">
+		<div class="album py-5 bg-light">
+			<div class="container">
+				<h1>Catmash voting</h1>
+			</div>
+
+			<div class="container jumbotron">
+				<div class="row justify-content-between align-items-center">
+					<div class="card-body col-md-3"></div>
+					<div class="card-body col-md-3" th:each="anews : ${cats}">
+						<div class="">						
+							<figure class="figure">
+							  <img th:src="@{{img}(img=${anews.url})}" class="figure-img img-fluid rounded" 
+							  		th:alt="@{{img}(img=${anews.id})}">
+							  <figcaption>[[${anews.score}]] vote(s)</figcaption>
+							</figure>
+
+							<div class="btn-group">
+								<button
+									th:onclick="'window.location.href = \'' + @{/vote/{id}(id=${anews.id})} + '\''"
+									type="button" class="btn btn-sm btn-outline-secondary">
+									vote
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="card-body col-md-3"></div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer th:replace="footer :: footer"></footer>
+</body>
 </html>

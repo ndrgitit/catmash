@@ -1,33 +1,31 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head th:replace="head :: head"></head> 
-    <body> 
-        <!-- header th:replace="header :: header"></header>  -->
-        <main role="main"> 
-            <center> 
-                <div class="album py-5 bg-light"> 
-                    <div class="container"> 
-                        <h1>Catmash scores</h1> 
-                        <p class="lead text-muted">This is a Catmash projects using Java EE, Spring, Hibernate, Thymeleaf, ...</p> 
-                    </div> 
-                    
-                    <div class="container jumbotron">                     	 
-					    <div th:each="element : ${cats}">
-					        <div class="row">
-					        	<h2 class="col-md-12">Score: [[${element.key}]]</h2>
-					            <div class="card-body col-md-3" th:each="anews : ${element.value}">
-							        <div class="card">
-								        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"> 
-		                                    <image th:if="${anews.url != null}" th:href="@{{img}(img=${anews.url})}" x="0" y="0" height="100%" width="100%" /> 
-		                                </svg> 
-	                                </div>
-					            </div>
-				            </div>
-					    </div>
-                    </div>
-                </div> 
-            </center> 
-        </main> 
-        <!-- footer th:replace="footer :: footer"></footer>   -->
-    </body>
+<head th:replace="head :: head"></head>
+<body>
+	<header th:replace="header :: header"></header>
+	<main role="main">
+		<div class="album py-5 bg-light">
+			<div class="container">
+				<h1>Catmash scores</h1>
+			</div>
+
+			<div class="container jumbotron">
+				<div th:each="element : ${cats}">
+					<div class="row card-body mb-5">
+						<h2 class="col-md-12">Score: [[${element.key}]]</h2>
+						<div class="card-body col-md-3" th:each="anews : ${element.value}">
+							<figure class="figure">
+							  <img th:src="@{{img}(img=${anews.url})}" class="figure-img img-fluid rounded" 
+							  		th:alt="@{{img}(img=${anews.id})}">
+							  <figcaption>[[${anews.id}]]</figcaption>
+							</figure>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</main>
+	<footer th:replace="footer :: footer"></footer>
+</body>
 </html>
