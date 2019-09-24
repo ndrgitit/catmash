@@ -7,7 +7,7 @@ import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class CatImagesSet {
+public class CatmashRepository {
 
     List<CatImage> images;
 

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class FrontWebController {
 
     @Autowired
-    DataSource dataSource;
+    CatmashService catService;
 
     /**
      * Using templates/scores.html
@@ -28,7 +28,7 @@ public class FrontWebController {
      */
     @GetMapping("/")
     public ModelAndView fromRootToScoresPage(Model model) throws JsonParseException, JsonMappingException, IOException {
-        model.addAttribute("cats", dataSource.getCats().getOrderedCatScores());
+        model.addAttribute("cats", catService.getCats().getOrderedCatScores());
         return new ModelAndView("scores");
     }
 
@@ -42,13 +42,13 @@ public class FrontWebController {
      */
     @GetMapping("/scores")
     public ModelAndView scoresPage(Model model) throws JsonParseException, JsonMappingException, IOException {
-        model.addAttribute("cats", dataSource.getCats().getOrderedCatScores());
+        model.addAttribute("cats", catService.getCats().getOrderedCatScores());
         return new ModelAndView("scores");
     }
 
     @GetMapping("/vote")
     public ModelAndView votePage(Model model) throws JsonParseException, JsonMappingException, IOException {
-        CatImagesSet catImagesSet = dataSource.getCats();
+        CatmashRepository catImagesSet = catService.getCats();
         CatImage[] lessCuttestCats = catImagesSet.getTheTwoLessCuttestCat();
         model.addAttribute("cats", lessCuttestCats);
         return new ModelAndView("vote");
@@ -57,12 +57,12 @@ public class FrontWebController {
     @GetMapping("/vote/{id}")
     public ModelAndView voteSubmitPage(Model model, @PathVariable String id)
             throws JsonParseException, JsonMappingException, IOException {
-        CatImagesSet catImagesSet = dataSource.getCats();
+        CatmashRepository catImagesSet = catService.getCats();
         CatImage catImage = catImagesSet.getCatImage(id);
         catImage.incrementScore();
 
         // refresh
-        catImagesSet = dataSource.getCats();
+        catImagesSet = catService.getCats();
         CatImage[] lessCuttestCats = catImagesSet.getTheTwoLessCuttestCat();
         model.addAttribute("cats", lessCuttestCats);
 

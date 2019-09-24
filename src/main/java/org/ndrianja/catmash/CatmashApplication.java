@@ -14,8 +14,8 @@ public class CatmashApplication {
 
     @Bean
     @Scope("singleton")
-    public DataSource getCats() {
-        return new DataSource();
+    public CatmashService getCats() {
+        return new CatmashService();
     }
 
 }

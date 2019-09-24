@@ -13,25 +13,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
-public class DataSource {
+public class CatmashService {
 
-    private CatImagesSet cats;
+    private CatmashRepository catImagesDataSet;
 
-    public CatImagesSet getCats() throws JsonParseException, JsonMappingException, IOException {
-        if (cats == null) {
+    public CatmashRepository getCats() throws JsonParseException, JsonMappingException, IOException {
+        if (catImagesDataSet == null) {
             Client client = ClientBuilder.newClient();
             WebTarget webTarget = client.target("https://latelier.co/data/cats.json");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.get();
             ObjectMapper objectMapper = new ObjectMapper();
-            return cats = objectMapper.readValue(response.readEntity(String.class), CatImagesSet.class);
+            return catImagesDataSet = objectMapper.readValue(response.readEntity(String.class), CatmashRepository.class);
         } else {
-            return cats;
+            return catImagesDataSet;
         }
 
     }
 
-    public void setCats(CatImagesSet cats) {
-        this.cats = cats;
+    public void setCats(CatmashRepository cats) {
+        this.catImagesDataSet = cats;
     }
 }

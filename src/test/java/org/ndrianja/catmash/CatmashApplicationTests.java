@@ -25,8 +25,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class CatmashApplicationTests {
 
     @Autowired
-    DataSource dataSource;
-    private CatImagesSet catImagesSet;
+    CatmashService dataSource;
+    private CatmashRepository catImagesSet;
     private List<CatImage> cats;
     private TreeMap<Integer, List<CatImage>> scoresMapFromTest;
 
@@ -49,7 +49,7 @@ public class CatmashApplicationTests {
     @Test
     public void contextLoads() throws JsonParseException, JsonMappingException, IOException {
         assertNotNull(dataSource);
-        CatImagesSet cats = dataSource.getCats();
+        CatmashRepository cats = dataSource.getCats();
         assertNotNull(cats);
     }
 
