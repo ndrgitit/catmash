@@ -15,23 +15,23 @@ import java.io.IOException;
 
 public class CatmashService {
 
-    private CatmashRepository catImagesDataSet;
+    private CatmashRepository catmashRepository;
 
     public CatmashRepository getCats() throws JsonParseException, JsonMappingException, IOException {
-        if (catImagesDataSet == null) {
+        if (catmashRepository == null) {
             Client client = ClientBuilder.newClient();
             WebTarget webTarget = client.target("https://latelier.co/data/cats.json");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.get();
             ObjectMapper objectMapper = new ObjectMapper();
-            return catImagesDataSet = objectMapper.readValue(response.readEntity(String.class), CatmashRepository.class);
+            return catmashRepository = objectMapper.readValue(response.readEntity(String.class), CatmashRepository.class);
         } else {
-            return catImagesDataSet;
+            return catmashRepository;
         }
 
     }
 
     public void setCats(CatmashRepository cats) {
-        this.catImagesDataSet = cats;
+        this.catmashRepository = cats;
     }
 }
