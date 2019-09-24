@@ -29,7 +29,7 @@ public class CatmashRepository {
     }
 
     /**
-     * TODO To be improved
+     * TODO To be improved: select two cats, not especially the less cuttest
      * 
      * @return
      */
