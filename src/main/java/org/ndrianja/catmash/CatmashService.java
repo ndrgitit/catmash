@@ -24,11 +24,11 @@ public class CatmashService {
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.get();
             ObjectMapper objectMapper = new ObjectMapper();
-            return catmashRepository = objectMapper.readValue(response.readEntity(String.class), CatmashRepository.class);
+            return catmashRepository = objectMapper.readValue(response.readEntity(String.class),
+                    CatmashRepository.class);
         } else {
             return catmashRepository;
         }
-
     }
 
     public void setCats(CatmashRepository cats) {

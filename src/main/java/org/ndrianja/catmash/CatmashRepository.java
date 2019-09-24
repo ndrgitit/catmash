@@ -28,6 +28,11 @@ public class CatmashRepository {
         return resp.toString();
     }
 
+    /**
+     * TODO To be improved
+     * 
+     * @return
+     */
     public CatImage[] getTheTwoLessCuttestCat() {
         int min = Integer.MAX_VALUE;
         CatImage[] lessCuttest = new CatImage[2];
@@ -40,6 +45,7 @@ public class CatmashRepository {
                 lessCuttest[1] = tmp;
             }
         }
+
         if (lessCuttest[1] == null) {
             lessCuttest[1] = images.get(images.size() - 1);
         }
