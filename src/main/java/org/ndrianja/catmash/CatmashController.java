@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Controller
-public class FrontWebController {
+public class CatmashController {
 
     @Autowired
     CatmashService catService;
