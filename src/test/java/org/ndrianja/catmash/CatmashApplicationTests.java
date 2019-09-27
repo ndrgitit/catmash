@@ -2,6 +2,7 @@ package org.ndrianja.catmash;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class CatmashApplicationTests {
     public void contextLoads() throws JsonParseException, JsonMappingException, IOException {
         assertNotNull(catmashService);
         CatmashRepository cats = catmashService.getCats();
+        assertNull(cats.getCatImage("Nothing"));
         assertNotNull(cats.toString());
         assertNotNull(cats);
     }
