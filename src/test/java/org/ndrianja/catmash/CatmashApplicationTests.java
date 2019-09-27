@@ -25,14 +25,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class CatmashApplicationTests {
 
     @Autowired
-    CatmashService dataSource;
+    CatmashService catmashService;
     private CatmashRepository catImagesSet;
     private List<CatImage> cats;
     private TreeMap<Integer, List<CatImage>> scoresMapFromTest;
 
     @Before
     public void init() throws JsonParseException, JsonMappingException, IOException {
-        catImagesSet = dataSource.getCats();
+        catImagesSet = catmashService.getCats();
         cats = catImagesSet.getImages();
         scoresMapFromTest = new TreeMap<>();
         for (int i = 0; i < cats.size(); i++) {
@@ -48,8 +48,9 @@ public class CatmashApplicationTests {
 
     @Test
     public void contextLoads() throws JsonParseException, JsonMappingException, IOException {
-        assertNotNull(dataSource);
-        CatmashRepository cats = dataSource.getCats();
+        assertNotNull(catmashService);
+        CatmashRepository cats = catmashService.getCats();
+        assertNotNull(cats.toString());
         assertNotNull(cats);
     }
 
