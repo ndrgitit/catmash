@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.NavigableSet;
 import java.util.TreeMap;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,6 @@ public class CatmashApplicationTests {
 
     @Autowired
     CatmashService catmashService;
-
-    @Before
-    public void init() {
-
-    }
 
     @Test
     public void contextLoads() throws JsonParseException, JsonMappingException, IOException {

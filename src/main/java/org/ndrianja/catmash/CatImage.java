@@ -41,7 +41,7 @@ public class CatImage {
     }
 
     public synchronized void incrementScore() {
-    	setScore(score+1);
+        setScore(score + 1);
     }
 
     public int getQuota() {

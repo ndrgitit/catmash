@@ -34,4 +34,5 @@ public class CatmashService {
     public void incrementScore(String id) throws JsonParseException, JsonMappingException, IOException {
         catmashRepository.incrementCatImageScore(id);
     }
+
 }
