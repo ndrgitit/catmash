@@ -48,7 +48,7 @@ public class CatmashController {
 
     @GetMapping("/vote")
     public ModelAndView votePage(Model model) throws JsonParseException, JsonMappingException, IOException {
-        CatImage[] lessCuttestCats = catService.selectTwoCatImage();
+        CatImage[] lessCuttestCats = catService.selectFiveCatImage();
         model.addAttribute("cats", lessCuttestCats);
         return new ModelAndView("vote");
     }
@@ -60,7 +60,7 @@ public class CatmashController {
         catImage.incrementScore();
 
         // refresh
-        CatImage[] lessCuttestCats = catService.selectTwoCatImage();
+        CatImage[] lessCuttestCats = catService.selectFiveCatImage();
         model.addAttribute("cats", lessCuttestCats);
 
         model.addAttribute("cats", lessCuttestCats);
