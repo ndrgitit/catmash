@@ -39,15 +39,7 @@ public class CatmashRepository {
     }
 
     public TreeMap<Integer, List<CatImage>> getOrderedCatImageScores() {
-        TreeMap<Integer, List<CatImage>> orderedCatScores = new TreeMap<>((a, b) -> {
-            if (a < b) {
-                return 1;
-            } else if (a > b) {
-                return -1;
-            } else {
-                return 0;
-            }
-        });
+        TreeMap<Integer, List<CatImage>> orderedCatScores = new TreeMap<>(Comparator.reverseOrder());
         for (CatImage catImage : catImageList) {
             if (orderedCatScores.get(catImage.getScore()) == null) {
                 orderedCatScores.put(catImage.getScore(), new ArrayList<CatImage>());
@@ -68,14 +60,5 @@ public class CatmashRepository {
 
     public void incrementCatImageScore(String id) {
         getCatImage(id).incrementScore();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder resp = new StringBuilder();
-        for (CatImage cat : catmashJson.getImages()) {
-            resp.append(cat.toString() + "\n");
-        }
-        return resp.toString();
     }
 }
