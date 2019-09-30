@@ -42,7 +42,7 @@ public class CatmashApplicationTests {
      */
     @Test
     public void selectTwoCatsTest() throws JsonParseException, JsonMappingException, IOException {
-        CatImage[] lessCuttest = catmashService.selectFiveCatImage();
+        CatImage[] lessCuttest = catmashService.selectThreeCatImage();
         assertTrue(lessCuttest[0] instanceof CatImage);
         assertTrue(lessCuttest[1] instanceof CatImage);
     }
@@ -57,14 +57,14 @@ public class CatmashApplicationTests {
      */
     @Test
     public void doIHaveTheRightCats() throws JsonParseException, JsonMappingException, IOException {
-        CatImage[] lessCuttest = catmashService.selectFiveCatImage();
-        assertEquals(5, lessCuttest.length);
+        CatImage[] lessCuttest = catmashService.selectThreeCatImage();
+        assertEquals(3, lessCuttest.length);
         assertEquals(lessCuttest[0].getQuota(), lessCuttest[1].getQuota());
 
         catmashService.incrementScore(lessCuttest[0].getId());
         catmashService.incrementScore(lessCuttest[1].getId());
 
-        CatImage[] newLessCuttest = catmashService.selectFiveCatImage();
+        CatImage[] newLessCuttest = catmashService.selectThreeCatImage();
 
         /*
          * System.out.println(lessCuttest[0] + " ??? " + newLessCuttest[0]); System.out.println(lessCuttest[1] + " ??? "

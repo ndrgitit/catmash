@@ -11,15 +11,14 @@
 
 			<div class="container jumbotron">
 				<div class="row justify-content-between align-items-center">
-					<div class="card-body col-md-3"></div>
-					<div class="card-body col-md-3" th:each="anews : ${cats}">
-						<div class="">						
+					<div class="card-body col-md-4" th:each="anews : ${cats}">
+						<div class="view overlay zoom">		
 							<figure class="figure">
 								<a th:href="@{/vote/{id}(id=${anews.id})}">
-							  		<img th:src="@{{img}(img=${anews.url})}" class="figure-img img-fluid rounded" 
-							  			th:alt="@{{img}(img=${anews.id})}">
+							  		<img th:src="@{{img}(img=${anews.url})}" class="figure-img img-fluid rounded hoverable" 
+							  			th:alt="@{{img}(img=${anews.id})}" />
 							  	</a>
-							  <figcaption>Score: [[${anews.score}]], remaining: [[${anews.quota}]]</figcaption>
+							  <figcaption class="mask flex-center">Score: [[${anews.score}]], remaining: [[${anews.quota}]]</figcaption>
 							</figure>
 
 							<!-- div class="btn-group">
@@ -31,7 +30,6 @@
 							</div-->
 						</div>
 					</div>
-					<div class="card-body col-md-3"></div>
 				</div>
 			</div>
 		</div>
