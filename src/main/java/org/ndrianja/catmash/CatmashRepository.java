@@ -33,6 +33,7 @@ public class CatmashRepository {
 
     public CatImage[] selectCats(int count) {
         return catImageList.stream()
+        		.filter(c -> c.getQuota() > 0)
                 .sorted(Comparator.comparingInt(CatImage::getQuota).reversed()
                         .thenComparing(Comparator.comparingInt(CatImage::getScore)))
                 .limit(count).collect(Collectors.toList()).toArray(CatImage[]::new);
