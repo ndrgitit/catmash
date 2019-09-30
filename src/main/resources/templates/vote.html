@@ -17,7 +17,7 @@
 							<figure class="figure">
 							  <img th:src="@{{img}(img=${anews.url})}" class="figure-img img-fluid rounded" 
 							  		th:alt="@{{img}(img=${anews.id})}">
-							  <figcaption>[[${anews.score}]] vote(s)</figcaption>
+							  <figcaption>Score: [[${anews.score}]], remaining: [[${anews.quota}]]</figcaption>
 							</figure>
 
 							<div class="btn-group">
