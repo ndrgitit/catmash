@@ -20,8 +20,9 @@ public class CatmashService {
 
     public CatImage[] selectThreeCatImage() throws JsonParseException, JsonMappingException, IOException {
         CatImage[] x = catmashRepository.selectCats(3);
-        catmashRepository.decreaseQuota(x[0].getId());
-        catmashRepository.decreaseQuota(x[1].getId());
+        for (int i = 0; i < x.length; i++) {
+            catmashRepository.decreaseQuota(x[i].getId());
+        }
         return x;
     }
 

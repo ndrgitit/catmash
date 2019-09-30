@@ -8,7 +8,7 @@ public class CatImage {
 
     public CatImage() {
         score = 0;
-        quota = 2;
+        quota = 3;
     }
 
     public String getUrl() {

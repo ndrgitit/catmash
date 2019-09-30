@@ -11,7 +11,7 @@
 
 			<div class="container jumbotron">
 				<div class="row justify-content-between align-items-center">
-					<div class="card-body col-md-4" th:each="anews : ${cats}">
+					<div class="card-body col-md-4" th:if="${not #lists.isEmpty(cats)}" th:each="anews: ${cats}">
 						<div class="view overlay zoom">		
 							<figure class="figure">
 								<a th:href="@{/vote/{id}(id=${anews.id})}">
@@ -20,15 +20,16 @@
 							  	</a>
 							  <figcaption class="mask flex-center">Score: [[${anews.score}]], remaining: [[${anews.quota}]]</figcaption>
 							</figure>
-
-							<!-- div class="btn-group">
-								<button
-									th:onclick="'window.location.href = \'' + @{/vote/{id}(id=${anews.id})} + '\''"
-									type="button" class="btn btn-sm btn-outline-secondary">
-									vote
-								</button>
-							</div-->
+							
 						</div>
+					</div>
+					<div class="card-body col-md-12" th:if="${#lists.isEmpty(cats)}">
+						<div class="alert alert-info" role="alert">
+							Voting ends, please check <a href="/scores">scores</a>
+						</div>
+					</div>
+					<div class="alert alert-danger" role="alert">
+					  You can <a href="/vote">skip</a>! Just keep in minds that cats will loose points!
 					</div>
 				</div>
 			</div>
