@@ -1,8 +1,10 @@
 package org.ndrianja.catmash;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,28 +30,11 @@ public class CatmashRepository {
         return resp.toString();
     }
 
-    /**
-     * TODO To be improved: select two cats, not especially the less cutest
-     * 
-     * @return
-     */
-    public CatImage[] getTheTwoLessCuttestCat() {
-        int min = Integer.MAX_VALUE;
-        CatImage[] lessCuttest = new CatImage[2];
-        for (CatImage catImage : images) {
-            int score = catImage.getScore();
-            if (score < min) {
-                min = score;
-                CatImage tmp = lessCuttest[0];
-                lessCuttest[0] = catImage;
-                lessCuttest[1] = tmp;
-            }
-        }
-
-        if (lessCuttest[1] == null) {
-            lessCuttest[1] = images.get(images.size() - 1);
-        }
-        return lessCuttest;
+    public CatImage[] selectCats(int count) {
+        return images.stream()
+                .sorted(Comparator.comparingInt(CatImage::getQuota)
+                        .thenComparing(Comparator.comparingInt(CatImage::getScore)))
+                .limit(count).collect(Collectors.toList()).toArray(CatImage[]::new);
     }
 
     public TreeMap<Integer, List<CatImage>> getOrderedCatScores() {

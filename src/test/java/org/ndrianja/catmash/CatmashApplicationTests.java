@@ -1,6 +1,7 @@
 package org.ndrianja.catmash;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -27,14 +28,12 @@ public class CatmashApplicationTests {
 
     @Autowired
     CatmashService catmashService;
-    private CatmashRepository catImagesSet;
     private List<CatImage> cats;
     private TreeMap<Integer, List<CatImage>> scoresMapFromTest;
 
     @Before
-    public void init() throws JsonParseException, JsonMappingException, IOException {
-        catImagesSet = catmashService.getCats();
-        cats = catImagesSet.getImages();
+    public void init() {
+        cats = catmashService.getImages();
         scoresMapFromTest = new TreeMap<>();
         for (int i = 0; i < cats.size(); i++) {
             CatImage catImage = cats.get(i);
@@ -48,7 +47,7 @@ public class CatmashApplicationTests {
     }
 
     @Test
-    public void contextLoads() throws JsonParseException, JsonMappingException, IOException {
+    public void contextLoads() {
         assertNotNull(catmashService);
         CatmashRepository cats = catmashService.getCats();
         assertNull(cats.getCatImage("Nothing"));
@@ -56,30 +55,45 @@ public class CatmashApplicationTests {
         assertNotNull(cats);
     }
 
+    /**
+     * Set random score to cats, and remember the two with lowest score for vote suggestion
+     * 
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
+     */
     @Test
     public void selectTwoCatsTest() {
-        // set random score to cats, and remember the two with lowest score for vote suggestion
-        int minScore = Integer.MAX_VALUE;
-        int lessCuttestCat = Integer.MIN_VALUE, oldLessCuttestCat = Integer.MIN_VALUE;
-        for (int i = 0; i < cats.size(); i++) {
-            CatImage catImage = cats.get(i);
-            int score = catImage.getScore();
-            if (score < minScore) {
-                minScore = score;
-                int tmp = lessCuttestCat;
-                lessCuttestCat = i;
-                oldLessCuttestCat = tmp;
-            }
-        }
+        CatImage[] lessCuttest = catmashService.selectTwoCats();
+        assertTrue(lessCuttest[0] instanceof CatImage);
+        assertTrue(lessCuttest[1] instanceof CatImage);
+    }
 
-        CatImage[] lessCuttest = catImagesSet.getTheTwoLessCuttestCat();
-        assertTrue(cats.get(lessCuttestCat).getId().equals(lessCuttest[0].getId()));
-        assertTrue(cats.get(oldLessCuttestCat).getId().equals(lessCuttest[1].getId()));
+    /**
+     * To be tested: 1) Select two cats having the greatest quota 2) From those two cats, select the two having the
+     * lowest score
+     * 
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
+     */
+    @Test
+    public void doIHaveTheRightCats() {
+        CatImage[] lessCuttest = catmashService.selectTwoCats();
+        assertEquals(2, lessCuttest.length);
+        assertEquals(lessCuttest[0].getQuota(), lessCuttest[1].getQuota());
+
+        lessCuttest[0].incrementScore();
+        lessCuttest[1].incrementScore();
+
+        CatImage[] newLessCuttest = catmashService.selectTwoCats();
+        assertNotEquals(lessCuttest[0], newLessCuttest[0]);
+        assertNotEquals(lessCuttest[1], newLessCuttest[1]);
     }
 
     @Test
-    public void getOrderdCatScoresTest() {
-        TreeMap<Integer, List<CatImage>> scoresMapFromBusiness = catImagesSet.getOrderedCatScores();
+    public void getOrderdCatScoresTest() throws JsonParseException, JsonMappingException, IOException {
+        TreeMap<Integer, List<CatImage>> scoresMapFromBusiness = catmashService.getOrderedCatScores();
         NavigableSet<Integer> scoresFromBusiness = scoresMapFromBusiness.descendingKeySet();
         NavigableSet<Integer> scoresFromTest = scoresMapFromTest.descendingKeySet();
         assertEquals(scoresFromTest, scoresFromBusiness);
@@ -94,7 +108,21 @@ public class CatmashApplicationTests {
         int score = cat.getScore();
         int expected = score + 1;
         cat.incrementScore();
-        assertEquals(expected, expected);
+        assertEquals(expected, cat.getScore());
+    }
+
+    @Test
+    public void decreaseQuotaTest() {
+        CatImage cat = cats.get(0);
+        int quota = cat.getQuota();
+        int expected = quota - 1;
+        cat.decreaseQuota();
+        assertEquals(expected, cat.getQuota());
+
+        for (int i = 0; i < 5; i++) {
+            cat.decreaseQuota();
+        }
+        assertEquals(0, cat.getQuota());
     }
 
 }

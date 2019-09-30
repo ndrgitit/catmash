@@ -4,9 +4,11 @@ public class CatImage {
     private String url;
     private String id;
     private int score;
+    private int quota;
 
     public CatImage() {
         score = 0;
+        quota = 5;
     }
 
     public String getUrl() {
@@ -40,5 +42,13 @@ public class CatImage {
 
     public synchronized void incrementScore() {
         score++;
+    }
+
+    public int getQuota() {
+        return quota;
+    }
+
+    public void decreaseQuota() {
+        quota = quota > 0 ? quota - 1 : quota;
     }
 }

@@ -49,7 +49,7 @@ public class CatmashController {
     @GetMapping("/vote")
     public ModelAndView votePage(Model model) throws JsonParseException, JsonMappingException, IOException {
         CatmashRepository catImagesSet = catService.getCats();
-        CatImage[] lessCuttestCats = catImagesSet.getTheTwoLessCuttestCat();
+        CatImage[] lessCuttestCats = catImagesSet.selectCats(2);
         model.addAttribute("cats", lessCuttestCats);
         return new ModelAndView("vote");
     }
@@ -63,7 +63,7 @@ public class CatmashController {
 
         // refresh
         catImagesSet = catService.getCats();
-        CatImage[] lessCuttestCats = catImagesSet.getTheTwoLessCuttestCat();
+        CatImage[] lessCuttestCats = catImagesSet.selectCats(2);
         model.addAttribute("cats", lessCuttestCats);
 
         model.addAttribute("cats", lessCuttestCats);
