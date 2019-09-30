@@ -61,4 +61,8 @@ public class CatmashRepository {
     public void incrementCatImageScore(String id) {
         getCatImage(id).incrementScore();
     }
+
+    public void decreaseQuota(String id) {
+        getCatImage(id).decreaseQuota();
+    }
 }

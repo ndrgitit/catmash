@@ -71,7 +71,6 @@
 		<dependency>
 		    <groupId>org.glassfish.jersey.media</groupId>
 		    <artifactId>jersey-media-json-jackson</artifactId>
-		    <version>2.22</version>
 		</dependency>
 		
 		
@@ -117,6 +116,11 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.4</version>
+				<configuration>
+					<excludes>
+						<exclude>**/CatmashApplication.java</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
