@@ -37,7 +37,7 @@ public class CatImage {
 
     @Override
     public String toString() {
-        return "id: " + id + ", url: " + url;
+        return "(" + id + ", " + quota + "," + score + ")";
     }
 
     public synchronized void incrementScore() {

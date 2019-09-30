@@ -28,7 +28,7 @@ public class CatmashController {
      */
     @GetMapping("/")
     public ModelAndView fromRootToScoresPage(Model model) throws JsonParseException, JsonMappingException, IOException {
-        model.addAttribute("cats", catService.getCats().getOrderedCatScores());
+        model.addAttribute("cats", catService.getOrderedCatImageScores());
         return new ModelAndView("scores");
     }
 
@@ -42,14 +42,13 @@ public class CatmashController {
      */
     @GetMapping("/scores")
     public ModelAndView scoresPage(Model model) throws JsonParseException, JsonMappingException, IOException {
-        model.addAttribute("cats", catService.getCats().getOrderedCatScores());
+        model.addAttribute("cats", catService.getOrderedCatImageScores());
         return new ModelAndView("scores");
     }
 
     @GetMapping("/vote")
     public ModelAndView votePage(Model model) throws JsonParseException, JsonMappingException, IOException {
-        CatmashRepository catImagesSet = catService.getCats();
-        CatImage[] lessCuttestCats = catImagesSet.selectCats(2);
+        CatImage[] lessCuttestCats = catService.selectTwoCatImage();
         model.addAttribute("cats", lessCuttestCats);
         return new ModelAndView("vote");
     }
@@ -57,13 +56,11 @@ public class CatmashController {
     @GetMapping("/vote/{id}")
     public ModelAndView voteSubmitPage(Model model, @PathVariable String id)
             throws JsonParseException, JsonMappingException, IOException {
-        CatmashRepository catImagesSet = catService.getCats();
-        CatImage catImage = catImagesSet.getCatImage(id);
+        CatImage catImage = catService.getCatImageById(id);
         catImage.incrementScore();
 
         // refresh
-        catImagesSet = catService.getCats();
-        CatImage[] lessCuttestCats = catImagesSet.selectCats(2);
+        CatImage[] lessCuttestCats = catService.selectTwoCatImage();
         model.addAttribute("cats", lessCuttestCats);
 
         model.addAttribute("cats", lessCuttestCats);
