@@ -19,7 +19,10 @@ public class CatmashService {
     }
 
     public CatImage[] selectTwoCatImage() throws JsonParseException, JsonMappingException, IOException {
-        return catmashRepository.selectCats(2);
+        CatImage[] x = catmashRepository.selectCats(2);
+        catmashRepository.decreaseQuota(x[0].getId());
+        catmashRepository.decreaseQuota(x[1].getId());
+        return x;
     }
 
     public TreeMap<Integer, List<CatImage>> getOrderedCatImageScores()
@@ -33,7 +36,6 @@ public class CatmashService {
 
     public void incrementScore(String id) throws JsonParseException, JsonMappingException, IOException {
         catmashRepository.incrementCatImageScore(id);
-        catmashRepository.decreaseQuota(id);
     }
 
 }
