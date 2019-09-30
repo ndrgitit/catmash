@@ -58,7 +58,7 @@ public class CatmashApplicationTests {
     @Test
     public void doIHaveTheRightCats() throws JsonParseException, JsonMappingException, IOException {
         CatImage[] lessCuttest = catmashService.selectFiveCatImage();
-        assertEquals(2, lessCuttest.length);
+        assertEquals(5, lessCuttest.length);
         assertEquals(lessCuttest[0].getQuota(), lessCuttest[1].getQuota());
 
         catmashService.incrementScore(lessCuttest[0].getId());
@@ -69,9 +69,9 @@ public class CatmashApplicationTests {
         /*
          * System.out.println(lessCuttest[0] + " ??? " + newLessCuttest[0]); System.out.println(lessCuttest[1] + " ??? "
          * + newLessCuttest[1]);
-         * 
-         * assertNotEquals(lessCuttest[0], newLessCuttest[0]); assertNotEquals(lessCuttest[1], newLessCuttest[1]);
          */
+        assertNotEquals(lessCuttest[0], newLessCuttest[0]);
+        assertNotEquals(lessCuttest[1], newLessCuttest[1]);
     }
 
     @Test
