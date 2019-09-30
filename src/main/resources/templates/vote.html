@@ -15,18 +15,20 @@
 					<div class="card-body col-md-3" th:each="anews : ${cats}">
 						<div class="">						
 							<figure class="figure">
-							  <img th:src="@{{img}(img=${anews.url})}" class="figure-img img-fluid rounded" 
-							  		th:alt="@{{img}(img=${anews.id})}">
+								<a th:href="@{/vote/{id}(id=${anews.id})}">
+							  		<img th:src="@{{img}(img=${anews.url})}" class="figure-img img-fluid rounded" 
+							  			th:alt="@{{img}(img=${anews.id})}">
+							  	</a>
 							  <figcaption>Score: [[${anews.score}]], remaining: [[${anews.quota}]]</figcaption>
 							</figure>
 
-							<div class="btn-group">
+							<!-- div class="btn-group">
 								<button
 									th:onclick="'window.location.href = \'' + @{/vote/{id}(id=${anews.id})} + '\''"
 									type="button" class="btn btn-sm btn-outline-secondary">
 									vote
 								</button>
-							</div>
+							</div-->
 						</div>
 					</div>
 					<div class="card-body col-md-3"></div>
